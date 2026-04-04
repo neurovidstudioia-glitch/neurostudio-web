@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    NEUROSTUDIO — LIQUID GLASS REDESIGN
    Palette: #000 (black) · #0057FF (blue) · #fff (white)
    ============================================================ */
@@ -814,8 +814,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 /* ── AUDITOR ───────────────────────────────────────────────── */
 .auditor{position:relative;z-index:1;padding:8rem 2rem}
 .auditor__inner{
-  max-width:900px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:center;
+  max-width:800px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
 }
 @media(max-width:768px){.auditor__inner{grid-template-columns:1fr}}
 .auditor__float-stats{display:flex;flex-direction:column;gap:1rem}
@@ -4523,5 +4523,26 @@ section {
     left: auto !important;
     top: auto !important;
     margin: 0 !important;
+  }
+}
+
+/* --- AUDITOR MOBILE FIXES --- */
+@media (max-width: 768px) {
+  .auditor__result-title {
+    font-size: 1.1rem !important;
+  }
+  .auditor__result-desc {
+    font-size: 0.9rem !important;
+  }
+  .auditor__content .section-title {
+    font-size: 1.5rem !important;
+  }
+  .auditor__sub {
+    font-size: 0.85rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .auditor__btn, #auditor-download {
+    font-size: 0.85rem !important;
+    padding: 10px 15px !important;
   }
 }
