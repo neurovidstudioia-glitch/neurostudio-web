@@ -374,7 +374,7 @@ document.querySelectorAll('.btn-agendar').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     // URL proporcionada por el cliente:
-    const calendlyUrl = 'https://calendly.com/neurovidstudioia/reunion-edicion-de-video-profesional'; 
+    const calendlyUrl = 'https://calendly.com/neurovidstudioia/reunion-estrategica'; 
     
     if (typeof Calendly !== 'undefined') {
       Calendly.initPopupWidget({url: calendlyUrl});
@@ -586,7 +586,7 @@ document.querySelectorAll('.bento__card').forEach(card => {
   if(newBtn) {
     newBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const calendlyUrl = 'https://calendly.com/neurovidstudioia/reunion-edicion-de-video-profesional'; 
+      const calendlyUrl = 'https://calendly.com/neurovidstudioia/reunion-estrategica'; 
       if (typeof Calendly !== 'undefined') Calendly.initPopupWidget({url: calendlyUrl});
       else window.open(calendlyUrl, '_blank');
     });
