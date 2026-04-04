@@ -4597,3 +4597,18 @@ body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover, html::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4) !important;
 }
+
+/* --- FIX OVERFLOW TEXTOS CORTADOS EN SECCION DIFERENCIADORES MÓVIL --- */
+@media (max-width: 768px) {
+  .dif__acc-stats {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .dif__acc-stats > div {
+    width: 100% !important;
+  }
+  .dif__acc-stats strong {
+    font-size: 1.35rem !important;
+  }
+}
