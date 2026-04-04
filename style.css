@@ -4557,3 +4557,26 @@ html, body {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
 }
+
+/* --- RESTAURAR SCROLLBAR CON DISEÑO PREMIUM SUTIL --- */
+::-webkit-scrollbar {
+  width: 8px !important;
+  display: block !important;
+  background: rgba(3, 6, 15, 1) !important;
+}
+::-webkit-scrollbar-track {
+  background: rgba(3, 6, 15, 1) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.03) !important;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 10px !important;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+html, body {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.15) rgba(3, 6, 15, 1) !important;
+  -ms-overflow-style: auto !important;
+}
