@@ -4546,3 +4546,14 @@ section {
     padding: 10px 15px !important;
   }
 }
+
+/* --- ELIMINAR SCROLLBAR NATIVO PARA ESTÉTICA APP --- */
+::-webkit-scrollbar {
+  width: 0px !important;
+  display: none !important;
+  background: transparent !important;
+}
+html, body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
