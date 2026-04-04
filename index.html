@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroStudio — Agencia de Marketing Digital · Montevideo, Uruguay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&amp;display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async=""></script>
+  <link rel="stylesheet" href="style.css?v=24">
+<style>
+    #ns-editor-panel {
+      position: fixed; top: 20px; right: 20px; background: rgba(13,16,23,0.9); border: 1px solid var(--blue-600);
+      padding: 15px; border-radius: 12px; z-index: 999999; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px); font-family: 'Outfit', sans-serif; display:flex; flex-direction:column; gap:10px;
+    }
+    #ns-editor-panel button {
+      background: var(--blue-500); color: white; border: none; padding: 8px 16px; border-radius: 6px;
+      cursor: pointer; font-weight: 600; text-transform: uppercase; font-size: 0.8rem;
+    }
+    #ns-editor-panel button.save-btn { background: #10b981; display:none; }
+    #ns-editor-panel button.cancel-btn { background: #ef4444; display:none; }
+    body.is-editing { border: 4px solid var(--blue-500); }
+    body.is-editing a { pointer-events: none; }
+  </style>
+  <style>
+    /* NEUROEDITOR HÍBRIDO */
+    #ns-editor-panel {
+      position: fixed; top: 20px; right: 20px; background: rgba(13,16,23,0.98); border: 2px solid #00f2ff;
+      padding: 15px; border-radius: 12px; z-index: 10000000 !important; color: white; box-shadow: 0 0 30px rgba(0,242,255,0.3);
+      backdrop-filter: blur(15px); font-family: 'Outfit', sans-serif; display:flex; flex-direction:column; gap:10px;
+      width: 260px; transition: 0.3s;
+    }
+    #ns-editor-panel button {
+      background: var(--blue-500); color: white; border: none; padding: 10px; border-radius: 6px;
+      cursor: pointer; font-weight: 600; font-size: 0.85rem; width: 100%; text-align:center; transition: 0.2s;
+    }
+    #ns-editor-panel button:hover { filter: brightness(1.2); }
+    .ns-btn-group { display:none; grid-template-columns: 1fr; gap:8px; }
+    .ns-row { display:flex; gap:8px; }
+    #ns-editor-panel button.danger-btn { background: #ef4444; flex:1; }
+    #ns-editor-panel button.success-btn { background: #10b981; flex:1; }
+    #ns-editor-panel button.tool-btn { background: #1e293b; border: 1px solid #334155; text-align: left; padding-left: 15px;}
+    body.is-editing { border: 4px solid var(--blue-500); padding-top:4px; }
+    body.is-editing a { pointer-events: none !important; }
+    body.is-editing img:hover, body.is-editing svg:hover { border: 2px dashed #10b981; cursor: pointer; }
+
+    /* AUTH MODAL FIXES */
+    #auth-modal {
+      display: flex !important; align-items: center; justify-content: center;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 9999999;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    #auth-modal.is-open { opacity: 1; pointer-events: auto; }
+    #auth-modal .modal__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); }
+    #auth-modal .modal__content {
+      position: relative; z-index: 2; transform: translateY(30px) scale(0.95); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: auto;
+    }
+    #auth-modal.is-open .modal__content { transform: translateY(0) scale(1); }
+    #auth-close {
+      position: absolute; top: 15px; right: 15px; background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #8b949e;
+    }
+
+    /* BODY BG FIXES (NO SECTORS) */
+    body { background-color: #03060f !important; }
+    .services, .narrative, section, main { background-color: transparent !important; background-image: none !important; }
+  </style>
+<link type="text/css" rel="stylesheet" charset="UTF-8" href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.2f3WBw8L4SI.L.W.O/am=AAAO/d=0/rs=AN8SPfqEMEisTZAmeZOnTrf_mfOPDE49Nw/m=el_main_css"><script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/_/translate_http/_/js/k=translate_http.tr.es.xw22fZvEVAo.O/am=AABA/d=1/exm=el_conf/ed=1/rs=AN8SPfqROMUPqL1ppMplL7JCs9BsS7lAcw/m=el_main"></script><link type="text/css" rel="stylesheet" charset="UTF-8" href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.2f3WBw8L4SI.L.W.O/am=AAAO/d=0/rs=AN8SPfqEMEisTZAmeZOnTrf_mfOPDE49Nw/m=el_main_css"><script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/_/translate_http/_/js/k=translate_http.tr.es.xw22fZvEVAo.O/am=AABA/d=1/exm=el_conf/ed=1/rs=AN8SPfqROMUPqL1ppMplL7JCs9BsS7lAcw/m=el_main"></script></head><body class=""><canvas id="particle-canvas" aria-hidden="true" width="1912" height="954"></canvas><canvas id="particle-canvas" aria-hidden="true" width="1912" height="954"></canvas><canvas id="particle-canvas" aria-hidden="true" width="1920" height="911"></canvas><canvas id="particle-canvas" aria-hidden="true" width="1920" height="911"></canvas>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" style="width: 99.5966%;"></div>
+
+  <!-- CURSOR GLOW (desktop only) -->
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- AMBIENT BACKGROUND ORBS -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="hero-orb hero-orb--1" style="transform: translateY(2468.75px);"></div>
+    <div class="hero-orb hero-orb--2" style="transform: translateY(-3653.75px);"></div>
+    <div class="hero-orb hero-orb--3" style="transform: translate(24.4508px, -14.7589px);"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">NeuroStudio</a>
+      <ul class="nav__links">
+        <li class="nav__item--dropdown" id="servItem">
+          <button class="nav__dropdown-trigger" id="servBtn" aria-expanded="false">
+            Servicios
+            <svg class="nav__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+          <div class="nav__dropdown" id="servDropdown" aria-hidden="true">
+            <div class="nav__dropdown-grid">
+              <a href="#servicios" class="nav__dropdown-item" data-close-dropdown="" style="">
+                <div class="nav__dropdown-icon">
+                  <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="2"></circle>
+                    <circle cx="14" cy="14" r="6" stroke="currentColor" stroke-width="2"></circle>
+                    <circle cx="14" cy="14" r="2" fill="currentColor"></circle>
+                    <line x1="14" y1="3" x2="14" y2="0" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="25" y1="14" x2="28" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                  </svg>
+                </div>
+                <div class="nav__dropdown-text">
+                  <span class="nav__dropdown-title">Meta &amp; Google Ads</span>
+                  <span class="nav__dropdown-desc">Campañas pagadas de alta conversión</span>
+                </div>
+              </a>
+              <a href="#servicios" class="nav__dropdown-item" data-close-dropdown="" style="">
+                <div class="nav__dropdown-icon">
+                  <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="5" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2"></rect>
+                    <path d="M11 9.5L19 14L11 18.5V9.5Z" fill="currentColor"></path>
+                  </svg>
+                </div>
+                <div class="nav__dropdown-text">
+                  <span class="nav__dropdown-title">Creación de Contenido</span>
+                  <span class="nav__dropdown-desc">Producción visual y audiovisual</span>
+                </div>
+              </a>
+              <a href="#servicios" class="nav__dropdown-item" data-close-dropdown="" style="">
+                <div class="nav__dropdown-icon">
+                  <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6C4 4.9 4.9 4 6 4H22C23.1 4 24 4.9 24 6V18C24 19.1 23.1 20 22 20H8L4 24V6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+                    <line x1="9" y1="10" x2="19" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="9" y1="14" x2="15" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                  </svg>
+                </div>
+                <div class="nav__dropdown-text">
+                  <span class="nav__dropdown-title">Community Management</span>
+                  <span class="nav__dropdown-desc">Gestión diaria de redes sociales</span>
+                </div>
+              </a>
+              <a href="#servicios" class="nav__dropdown-item" data-close-dropdown="" style="">
+                <div class="nav__dropdown-icon">
+                  <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="8" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"></rect>
+                    <circle cx="11" cy="9" r="1" fill="currentColor"></circle>
+                    <circle cx="17" cy="9" r="1" fill="currentColor"></circle>
+                    <path d="M11 13H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M14 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M4 10H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M20 10H24" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <div class="nav__dropdown-text">
+                  <span class="nav__dropdown-title">Automatizaciones con IA</span>
+                  <span class="nav__dropdown-desc">Flujos inteligentes que trabajan 24/7</span>
+                </div>
+              </a>
+              <a href="#servicios" class="nav__dropdown-item nav__dropdown-item--full" data-close-dropdown="" style="">
+                <div class="nav__dropdown-icon">
+                  <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="4" width="22" height="17" rx="2" stroke="currentColor" stroke-width="2"></rect>
+                    <path d="M3 9H25" stroke="currentColor" stroke-width="2"></path>
+                    <circle cx="7" cy="6.5" r="1" fill="currentColor"></circle>
+                    <circle cx="11" cy="6.5" r="1" fill="currentColor"></circle>
+                    <path d="M10 14L13 17L18 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+                <div class="nav__dropdown-text">
+                  <span class="nav__dropdown-title">Diseño y Desarrollo Web</span>
+                  <span class="nav__dropdown-desc">Sitios y landing pages que convierten</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#planes" data-i18n="navPlans" style="">Planes</a></li>
+        <li><a href="#nosotros" style="">Nosotros</a></li>
+        <li><a href="#proceso" data-i18n="navProcess" style="">Proceso</a></li>
+        <li><a href="#contacto" data-i18n="navContact" style="color: rgb(255, 255, 255);">Contacto</a></li>
+      </ul>
+      <div style="display:flex; align-items:center; gap:10px;"><a href="#" class="btn btn--nav btn-agendar" data-i18n="btnAgendar">Agendar Llamada</a></div>
+      <button class="nav__burger" id="navBurger" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="navMobile">
+      <a href="#servicios" class="nav__mobile-link" data-i18n="navServices">Servicios</a>
+      <a href="#planes" class="nav__mobile-link" data-i18n="navPlans">Planes</a>
+      <a href="#proceso" class="nav__mobile-link" data-i18n="navProcess">Proceso</a>
+      <a href="#contacto" class="nav__mobile-link" data-i18n="navContact">Contacto</a>
+      <a href="#" class="btn btn--primary mt-8 btn-agendar" data-i18n="btnAgendar">Agendar Llamada</a>
+    </div>
+  </nav>
+
+  <main class="" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1" style="margin-top: -40px;">
+
+    <!-- HERO -->
+    <section class="hero hero--centered in-view" id="hero">
+      <div class="hero__content hero__content--full reveal visible" style="margin-top: -20px; margin-bottom: -5px;">
+        <span class="tag" data-i18n="heroTag" style="color: rgb(255, 255, 255);">Marketing Digital &amp; Automatizaciones con IA · uruguay</span><h1 class="hero__headline" data-i18n="heroTitle">
+          El sistema de<br>
+          <span class="hero__headline--accent" style="margin-top: 0px; border-radius: 0px; font-size: 110px;">Marketing&nbsp;+&nbsp;IA</span><br>
+          que tu negocio necesita.
+        </h1>
+        <p class="hero__sub" data-i18n="heroSub" style="border-radius: 0px; font-size: 8px; width: 9980px; margin-top: -68px; margin-bottom: 188px; padding: 0px; z-index: 9000; opacity: 1;"></p><p data-start="453" data-end="612" class="" style="font-size: 14px;">Diseñamos sistemas de marketing + IA que generan oportunidades, responden al instante y convierten de forma automática.&nbsp;</p><div class="" style="">Menos esfuerzo operativo, más ingresos.<div class=""><br></div></div><p></p><p></p>
+        <div class="hero__actions">
+          <a href="#" class="btn btn--primary btn--lg btn-agendar" data-i18n="btnFreeSession" style="">Agendar Sesión Gratuita</a>
+          <a href="#servicios" class="btn btn--ghost btn--lg" data-i18n="btnMethod">Ver servicios</a>
+        </div>
+
+      </div>
+    </section>
+    
+    <section class="services in-view" id="features-strip" style="padding:5rem 2rem 0; max-width:1200px; margin:0 auto;">
+      <div class="reflect-grid" style="margin-top:0">
+        <div class="reflect-grid__item">
+          <svg class="reflect-grid__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          <div class="reflect-grid__title">Velocidad de IA</div>
+          <div class="reflect-grid__desc" style="">Chatbots que responden en 2 segundos. Ventas 24/7.</div>
+        </div>
+        <div class="reflect-grid__item">
+          <svg class="reflect-grid__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+          <div class="reflect-grid__title">Resultados medibles</div>
+          <div class="reflect-grid__desc" style="">Reportes claros con ROAS, CPL y retención. Solo métricas reales.</div>
+        </div>
+        <div class="reflect-grid__item">
+          <svg class="reflect-grid__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" class=""></rect><path d="M8 21h8M12 17v4"></path></svg>
+          <div class="reflect-grid__title">Diseño que vende</div>
+          <div class="reflect-grid__desc">Webs y landings de alta conversión. Diseño premium que transmite autoridad al instante.</div>
+        </div>
+        <div class="reflect-grid__item">
+          <svg class="reflect-grid__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <div class="reflect-grid__title">Equipo integrado</div>
+          <div class="reflect-grid__desc" style="">Trafficker, filmmaker y dev bajo el mismo sistema. Sin intermediarios ni subcontratos.</div>
+        </div>
+        <div class="reflect-grid__item">
+          <svg class="reflect-grid__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          <div class="reflect-grid__title">Multi-canal nativo</div>
+          <div class="reflect-grid__desc">Meta, Google, TikTok y WhatsApp en una sola estrategia coordinada y optimizada.</div>
+        </div>
+        <div class="reflect-grid__item">
+          <svg class="reflect-grid__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          <div class="reflect-grid__title">Contenido con propósito</div>
+          <div class="reflect-grid__desc">Reels y carruseles con ganchos psicológicos que detienen el scroll y convierten.</div>
+        </div>
+        <div class="reflect-grid__item">
+          <svg class="reflect-grid__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+          <div class="reflect-grid__title">Automatización 24/7</div>
+          <div class="reflect-grid__desc">CRM automático, seguimiento de leads y WhatsApp API. Tu equipo de ventas nunca duerme.</div>
+        </div>
+        <div class="reflect-grid__item">
+          <svg class="reflect-grid__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <div class="reflect-grid__title">Transparencia total</div>
+          <div class="reflect-grid__desc">Dashboard en tiempo real con acceso 24/7. Sabés exactamente qué hacemos con tu inversión.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee-section in-view" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Meta Ads</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Google Ads</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>ChatBot IA</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Contenido Viral</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>WhatsApp Automation</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>TikTok Ads</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Landing Pages</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Email Marketing</span>
+        <span class="marquee-dot"></span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Meta Ads</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Google Ads</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>ChatBot IA</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Contenido Viral</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>WhatsApp Automation</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>TikTok Ads</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Landing Pages</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Email Marketing</span>
+      </div>
+    </section>
+
+    <!-- NARRATIVE -->
+    <section class="narrative in-view" style="font-size: 39px;">
+      <p class="narrative__statement" id="narrativeStmt" style="font-size: 64px; font-weight: 500; text-align: left; margin-top: -20px; margin-bottom: -148px; padding: 0px; z-index: 9000;">
+        El marketing sin datos es <span class="highlight">solo gasto.</span><br>
+        Nosotros convertimos cada peso en <span class="highlight">resultado medible.</span>
+      </p>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services in-view" id="servicios">
+      <div class="services__header reveal visible">
+        <span class="tag" data-i18n="servicesTag">Nuestros Servicios</span>
+        <h2 class="section-title" data-i18n="servicesTitle">Todo lo que tu negocio<br>necesita para crecer.</h2>
+        <p class="section-sub" data-i18n="servicesSub">Desde la estrategia hasta la ejecución, cubrimos cada aspecto de tu presencia digital con IA y datos.</p>
+      </div>
+
+      <div class="bento">
+
+        <!-- IA & Automatizaciones — grande izquierda -->
+        <div class="bento__card bento__card--ia reveal visible is-flipped" data-service="ia" style="--mx: 67.7%; --my: 28.2%;"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front">
+          <div class="bento__card-icon bento__card-icon--glow">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" class="">
+              <rect x="8" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2" class=""></rect>
+              <circle cx="11" cy="9" r="1" fill="currentColor"></circle><circle cx="17" cy="9" r="1" fill="currentColor"></circle>
+              <path d="M11 13H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              <path d="M14 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" class=""></path>
+              <path d="M4 10H8M20 10H24" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <h3 class="bento__card-title" data-i18n="svcIATitle">Automatizaciones con IA</h3>
+          <p class="bento__card-desc" data-i18n="svcIADesc">Chatbots que responden en 2 segundos, pipelines de CRM automatizados, seguimiento de leads por WhatsApp y correo. Tu equipo de ventas trabaja 24/7 sin dormir.</p>
+          <div class="bento__card-tags">
+            <span class="chip">ChatBot</span>
+            <span class="chip">CRM Auto</span>
+            <span class="chip">WhatsApp API</span>
+            <span class="chip">Make / n8n</span>
+          </div>
+          <div class="bento__ia-badge"><span class="ia-pulse"></span> Potenciado con IA</div>
+        </div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div>
+
+        <!-- Diseño Web -->
+        <div class="bento__card bento__card--webs reveal reveal--delay-1 visible is-flipped" data-service="web" style="--mx: 87.0%; --my: 34.2%;"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front">
+          <div class="bento__card-icon">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" class="">
+              <rect x="3" y="4" width="22" height="17" rx="2" stroke="currentColor" stroke-width="2"></rect>
+              <path d="M3 9H25" stroke="currentColor" stroke-width="2" class=""></path>
+              <circle cx="7" cy="6.5" r="1" fill="currentColor"></circle>
+              <circle cx="11" cy="6.5" r="1" fill="currentColor"></circle>
+              <path d="M10 14L13 17L18 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <h3 class="bento__card-title" data-i18n="svcWebTitle">Diseño &amp; Desarrollo Web</h3>
+          <p class="bento__card-desc" data-i18n="svcWebDesc">Landing pages de alta conversión, sitios corporativos y e-commerce. Diseño que vende, código que carga rápido.</p>
+          <div class="bento__card-tags">
+            <span class="chip">Landing Page</span>
+            <span class="chip">E-commerce</span>
+            <span class="chip">SEO Técnico</span>
+          </div>
+        </div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div>
+
+        <!-- Performance Ads -->
+        <div class="bento__card bento__card--ads reveal visible is-flipped" data-service="ads" style="--mx: 84.3%; --my: 18.8%;"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front">
+          <div class="bento__card-icon">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="2"></circle>
+              <circle cx="14" cy="14" r="6" stroke="currentColor" stroke-width="2"></circle>
+              <circle cx="14" cy="14" r="2" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <h3 class="bento__card-title" data-i18n="svcAdsTitle">Performance Ads</h3>
+          <p class="bento__card-desc" data-i18n="svcAdsDesc">Campañas en Meta, Google y TikTok optimizadas para ROAS máximo. Cada peso invertido rastreado y reportado.</p>
+          <div class="bento__card-tags">
+            <span class="chip">Meta Ads</span>
+            <span class="chip">Google Ads</span>
+            <span class="chip">TikTok Ads</span>
+          </div>
+        </div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div>
+
+        <!-- Contenido -->
+        <div class="bento__card bento__card--content reveal reveal--delay-1 visible" data-service="video" style="--mx: 56.2%; --my: 25.9%;"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front">
+          <div class="bento__card-icon">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+              <rect x="3" y="5" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2"></rect>
+              <path d="M11 9.5L19 14L11 18.5V9.5Z" fill="currentColor"></path>
+            </svg>
+          </div>
+          <h3 class="bento__card-title" data-i18n="svcVideoTitle">Creación de Contenido</h3>
+          <p class="bento__card-desc" data-i18n="svcVideoDesc">Reels, TikToks y carruseles con ganchos psicológicos que detienen el scroll y convierten seguidores en clientes.</p>
+          <div class="bento__card-tags">
+            <span class="chip">Reels</span>
+            <span class="chip">TikTok</span>
+            <span class="chip">Carruseles</span>
+          </div>
+        </div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div>
+
+        <!-- Community -->
+        <div class="bento__card bento__card--cm reveal reveal--delay-2 visible" data-service="social" style="--mx: 93.5%; --my: 21.1%;"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front"><div class="bento__card-inner"><div class="bento__card-front">
+          <div class="bento__card-icon">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+              <path d="M4 6C4 4.9 4.9 4 6 4H22C23.1 4 24 4.9 24 6V18C24 19.1 23.1 20 22 20H8L4 24V6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+              <line x1="9" y1="10" x2="19" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+              <line x1="9" y1="14" x2="15" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+            </svg>
+          </div>
+          <h3 class="bento__card-title" data-i18n="svcCMTitle">Community Management</h3>
+          <p class="bento__card-desc" data-i18n="svcCMDesc">Gestión diaria de redes, respuestas estratégicas, crecimiento orgánico y construcción de comunidad fiel.</p>
+          <div class="bento__card-tags">
+            <span class="chip">Instagram</span>
+            <span class="chip">Facebook</span>
+            <span class="chip">LinkedIn</span>
+          </div>
+        </div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div><div class="bento__card-back"></div></div></div>
+
+      </div><!-- /bento -->
+    </section>
+
+    <!-- FLIP CARDS (Services detail) -->
+    <section class="flip-section in-view" id="servicios-detalle" style="padding:2rem 2rem 8rem;max-width:1200px;margin:0 auto;">
+      <div class="flip-section-header reveal visible">
+        <span class="tag">Detalle de Servicios</span>
+        <h2 class="section-title">Sistemas que convierten<br>clics en ventas.</h2>
+        <p>Hacé clic en cada tarjeta para ver exactamente qué cambia cuando trabajás con nosotros.</p>
+      </div>
+      <div class="flip-cards-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;">
+
+        <div class="flip-card reveal visible">
+          <div class="flip-card__inner">
+            <div class="flip-card__front">
+              <div class="flip-front-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="2"></circle><circle cx="14" cy="14" r="6" stroke="currentColor" stroke-width="2"></circle><circle cx="14" cy="14" r="2" fill="currentColor"></circle></svg>
+              </div>
+              <h3 class="flip-front-title">Performance Ads</h3>
+              <p class="flip-front-desc">Campañas en Meta, Google y TikTok con ROAS garantizado. Optimización en tiempo real.</p>
+              <span class="flip-hint">Clic para ver detalle</span>
+            </div>
+            <div class="flip-card__back">
+              <h4 class="flip-back-title">Performance Ads</h4>
+              <div class="flip-cols">
+                <div class="flip-col flip-col--pro flip-col--pros">
+                  <div class="flip-col-head">✓ Con NeuroStudio</div>
+                  <ul>
+                    <li>Tráfico calificado listo para comprar</li>
+                    <li>ROAS medible y reportado</li>
+                    <li>Optimización diaria de campañas</li>
+                  </ul>
+                </div>
+                <div class="flip-col flip-col--con flip-col--cons">
+                  <div class="flip-col-head">✗ Sin NeuroStudio</div>
+                  <ul>
+                    <li>Clientes van a la competencia</li>
+                    <li>Sin control del gasto publicitario</li>
+                    <li>Dependencia del algoritmo orgánico</li>
+                  </ul>
+                </div>
+              </div>
+              <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%20quiero%20saber%20sobre%20Performance%20Ads" target="_blank" rel="noopener" class="btn btn--primary flip-wa-btn">Consultar ahora</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card reveal reveal--delay-1 visible">
+          <div class="flip-card__inner">
+            <div class="flip-card__front">
+              <div class="flip-front-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="8" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"></rect><path d="M14 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M4 10H8M20 10H24" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+              </div>
+              <h3 class="flip-front-title">IA &amp; Automatizaciones</h3>
+              <p class="flip-front-desc">Chatbots, CRM automático y WhatsApp 24/7. Tu negocio trabaja mientras dormís.</p>
+              <span class="flip-hint">Clic para ver detalle</span>
+            </div>
+            <div class="flip-card__back">
+              <h4 class="flip-back-title">IA &amp; Automatizaciones</h4>
+              <div class="flip-cols">
+                <div class="flip-col flip-col--pro flip-col--pros">
+                  <div class="flip-col-head">✓ Con NeuroStudio</div>
+                  <ul>
+                    <li>Respuesta instantánea a leads 24/7</li>
+                    <li>Chatbot que califica y agenda</li>
+                    <li>Automatizaciones que escalan</li>
+                  </ul>
+                </div>
+                <div class="flip-col flip-col--con flip-col--cons">
+                  <div class="flip-col-head">✗ Sin NeuroStudio</div>
+                  <ul>
+                    <li>Leads perdidos por falta de respuesta</li>
+                    <li>Horas en tareas manuales repetitivas</li>
+                    <li>Competidores con IA te superan</li>
+                  </ul>
+                </div>
+              </div>
+              <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%20quiero%20saber%20sobre%20IA%20y%20automatizaciones" target="_blank" rel="noopener" class="btn btn--primary flip-wa-btn">Consultar ahora</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card reveal reveal--delay-2 visible">
+          <div class="flip-card__inner">
+            <div class="flip-card__front">
+              <div class="flip-front-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="4" width="22" height="17" rx="2" stroke="currentColor" stroke-width="2"></rect><path d="M3 9H25" stroke="currentColor" stroke-width="2"></path><path d="M10 14L13 17L18 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </div>
+              <h3 class="flip-front-title">Diseño Web</h3>
+              <p class="flip-front-desc">Sitios y landing pages que convierten visitantes en clientes. Rápidos, modernos y optimizados.</p>
+              <span class="flip-hint">Clic para ver detalle</span>
+            </div>
+            <div class="flip-card__back">
+              <h4 class="flip-back-title">Diseño Web</h4>
+              <div class="flip-cols">
+                <div class="flip-col flip-col--pro flip-col--pros">
+                  <div class="flip-col-head">✓ Con NeuroStudio</div>
+                  <ul>
+                    <li>Tu negocio disponible 24/7</li>
+                    <li>Primera impresión profesional</li>
+                    <li>Landing optimizada para conversiones</li>
+                  </ul>
+                </div>
+                <div class="flip-col flip-col--con flip-col--cons">
+                  <div class="flip-col-head">✗ Sin NeuroStudio</div>
+                  <ul>
+                    <li>Clientes dudan de tu seriedad</li>
+                    <li>Perdés tráfico de búsqueda de Google</li>
+                    <li>Dependencia total de Instagram</li>
+                  </ul>
+                </div>
+              </div>
+              <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%20quiero%20saber%20sobre%20Dise%C3%B1o%20Web" target="_blank" rel="noopener" class="btn btn--primary flip-wa-btn">Consultar ahora</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GUIA INTERACTIVA -->
+    <section class="guia in-view" id="guia" style="font-size: 8px; font-weight: 500;">
+      <div class="guia__inner">
+        <div class="guia__header reveal visible">
+          <span class="tag">¿Por dónde empezar?</span>
+          <h2 class="section-title">Encontrá el servicio<br>ideal para tu negocio.</h2>
+          <p class="guia__sub">Respondé 3 preguntas rápidas y te recomendamos el plan más efectivo.</p>
+        </div>
+
+        <div class="guia__container reveal visible">
+          <!-- Progress bar -->
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quiz-progress-fill" style="width:33%"></div>
+          </div>
+
+          <!-- Step 1 -->
+          <div class="guia__step active" id="guia-step-1">
+            <p class="guia__step-title">¿Cuál es tu nombre y tu tipo de negocio?</p>
+            <div class="guia__input-group">
+              <label for="guia-nombre" class="">Tu nombre:</label>
+              <input type="text" id="guia-nombre" class="guia__name-input" placeholder="Ej: María, Juan, TuMarca..." data-np-checked="1">
+              <p id="guia-error" style="color: rgb(248, 113, 113); font-size: 0.85rem; margin-top: 0.5rem; display: block;" class="">Por favor ingresá tu nombre antes de continuar.</p>
+            </div>
+            <p class="guia__step-subtitle">Seleccioná tu rubro:</p>
+            <div class="guia__options guia__options--netflix">
+              <button class="guia__netflix-card" data-rubro="tienda online / e-commerce">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)">
+                  <span class="guia__netflix-emoji">🛒</span>
+                  <div class="guia__netflix-glow" style="background:rgba(99,102,241,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">E-commerce</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="restaurante / gastronomía">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#1a0a00 0%,#3d1a00 50%,#7c2d00 100%)">
+                  <span class="guia__netflix-emoji">🍽️</span>
+                  <div class="guia__netflix-glow" style="background:rgba(249,115,22,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Gastronomía</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="servicios profesionales">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#0a0a1a 0%,#111827 50%,#1e3a5f 100%)">
+                  <span class="guia__netflix-emoji">💼</span>
+                  <div class="guia__netflix-glow" style="background:rgba(59,130,246,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Servicios Prof.</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="salud / bienestar">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#001a1a 0%,#013a3a 50%,#065f46 100%)">
+                  <span class="guia__netflix-emoji">🏥</span>
+                  <div class="guia__netflix-glow" style="background:rgba(16,185,129,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Salud / Clínicas</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="educación / cursos online">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#1a1000 0%,#3d2900 50%,#78350f 100%)">
+                  <span class="guia__netflix-emoji">🎓</span>
+                  <div class="guia__netflix-glow" style="background:rgba(245,158,11,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Educación</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="inmobiliaria / real estate">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#0a1a0a 0%,#162716 50%,#14532d 100%)">
+                  <span class="guia__netflix-emoji">🏠</span>
+                  <div class="guia__netflix-glow" style="background:rgba(34,197,94,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Inmobiliaria</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="moda / indumentaria">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#1a0a1a 0%,#3d1a3d 50%,#6b21a8 100%)">
+                  <span class="guia__netflix-emoji">👗</span>
+                  <div class="guia__netflix-glow" style="background:rgba(168,85,247,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Moda</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="hotel / alojamiento turístico">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#00101a 0%,#00243d 50%,#0c4a6e 100%)">
+                  <span class="guia__netflix-emoji">🏨</span>
+                  <div class="guia__netflix-glow" style="background:rgba(14,165,233,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Hotel / Posada</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="cafetería / coffee shop">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#1a0e00 0%,#3d2000 50%,#7c3d00 100%)">
+                  <span class="guia__netflix-emoji">☕</span>
+                  <div class="guia__netflix-glow" style="background:rgba(217,119,6,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Cafetería</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="gimnasio / fitness center">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#1a0000 0%,#3d0000 50%,#7f1d1d 100%)">
+                  <span class="guia__netflix-emoji">💪</span>
+                  <div class="guia__netflix-glow" style="background:rgba(239,68,68,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Gimnasio / Fitness</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="salón de belleza / spa">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#1a001a 0%,#3d003d 50%,#831843 100%)">
+                  <span class="guia__netflix-emoji">✂️</span>
+                  <div class="guia__netflix-glow" style="background:rgba(236,72,153,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Belleza / Spa</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="concesionaria / venta de autos">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#0a0a0a 0%,#1c1c1c 50%,#374151 100%)">
+                  <span class="guia__netflix-emoji">🚗</span>
+                  <div class="guia__netflix-glow" style="background:rgba(107,114,128,0.4)"></div>
+                </div>
+                <span class="guia__netflix-label">Concesionaria</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="agencia de viajes / turismo">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#001a10 0%,#003d26 50%,#065f46 100%)">
+                  <span class="guia__netflix-emoji">✈️</span>
+                  <div class="guia__netflix-glow" style="background:rgba(52,211,153,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Agencia de Viajes</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="veterinaria / mascotas">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#0a1a0a 0%,#1a3a1a 50%,#166534 100%)">
+                  <span class="guia__netflix-emoji">🐾</span>
+                  <div class="guia__netflix-glow" style="background:rgba(74,222,128,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Veterinaria</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="estudio jurídico / legal">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#0f0f0f 0%,#1f1f1f 50%,#292524 100%)">
+                  <span class="guia__netflix-emoji">⚖️</span>
+                  <div class="guia__netflix-glow" style="background:rgba(168,162,158,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Estudio Jurídico</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="logística / transporte">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#001020 0%,#002040 50%,#1e3a5f 100%)">
+                  <span class="guia__netflix-emoji">📦</span>
+                  <div class="guia__netflix-glow" style="background:rgba(96,165,250,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Logística</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="colegio / institución educativa">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#1a1000 0%,#3a2800 50%,#713f12 100%)">
+                  <span class="guia__netflix-emoji">🏫</span>
+                  <div class="guia__netflix-glow" style="background:rgba(251,191,36,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Colegio Privado</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="contabilidad / finanzas">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#001a00 0%,#003300 50%,#14532d 100%)">
+                  <span class="guia__netflix-emoji">📊</span>
+                  <div class="guia__netflix-glow" style="background:rgba(34,197,94,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Contabilidad</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="construcción / arquitectura">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#0f0a00 0%,#2a1f00 50%,#451a03 100%)">
+                  <span class="guia__netflix-emoji">🏗️</span>
+                  <div class="guia__netflix-glow" style="background:rgba(251,146,60,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Construcción</span>
+              </button>
+              <button class="guia__netflix-card" data-rubro="otro tipo de negocio">
+                <div class="guia__netflix-cover" style="background:linear-gradient(135deg,#0a0a1a 0%,#0f172a 50%,#1e1b4b 100%)">
+                  <span class="guia__netflix-emoji">✨</span>
+                  <div class="guia__netflix-glow" style="background:rgba(99,102,241,0.3)"></div>
+                </div>
+                <span class="guia__netflix-label">Otro</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="guia__step" id="guia-step-2">
+            <p class="guia__step-title">Cuál es tu mayor desafío ahora mismo?</p>
+            <div class="guia__options guia__options--challenges">
+              <button class="guia__challenge-card" data-desafio="conseguir más clientes nuevos">
+                <span class="guia__chal-icon">🎯</span>
+                <span class="guia__chal-text">Conseguir más clientes nuevos</span>
+              </button>
+              <button class="guia__challenge-card" data-desafio="mejorar mi presencia en redes sociales">
+                <span class="guia__chal-icon">📱</span>
+                <span class="guia__chal-text">Mejorar mi presencia en redes</span>
+              </button>
+              <button class="guia__challenge-card" data-desafio="automatizar respuestas y seguimiento de leads">
+                <span class="guia__chal-icon">🤖</span>
+                <span class="guia__chal-text">Automatizar atención al cliente</span>
+              </button>
+              <button class="guia__challenge-card" data-desafio="crear o mejorar mi sitio web">
+                <span class="guia__chal-icon">🌐</span>
+                <span class="guia__chal-text">Crear o mejorar mi web</span>
+              </button>
+              <button class="guia__challenge-card" data-desafio="generar contenido de calidad para mis redes">
+                <span class="guia__chal-icon">🎬</span>
+                <span class="guia__chal-text">Generar contenido de calidad</span>
+              </button>
+              <button class="guia__challenge-card" data-desafio="aumentar mis ventas online con publicidad paga">
+                <span class="guia__chal-icon">📈</span>
+                <span class="guia__chal-text">Aumentar ventas con publicidad</span>
+              </button>
+            </div>
+            <div class="guia__back">
+              <button id="guia-back-1" class="btn btn--ghost" style="font-size:.85rem;padding:.4rem .9rem;">← Volver</button>
+            </div>
+          </div>
+
+          <!-- Step 3 (Result) -->
+          <div class="guia__step" id="guia-step-3">
+            <div class="guia__result">
+              <div class="guia__result-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3L25 8.5V19.5L14 25L3 19.5V8.5L14 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><circle cx="14" cy="14" r="4" fill="currentColor" opacity="0.3"></circle><circle cx="14" cy="14" r="2" fill="currentColor"></circle></svg>
+              </div>
+              <p class="guia__result-text" id="guia-result-text"></p>
+              <div class="guia__result-services" id="guia-result-services"></div>
+              <a href="https://wa.me/59899421323" target="_blank" rel="noopener" class="btn btn--primary btn-cta-main" id="guia-wa-btn" style="margin-bottom:.6rem;">Hablar con un especialista →</a>
+              <p class="guia__result-note">Te respondemos en menos de 24hs · Sin compromiso</p>
+              <div style="height:1px;background:rgba(255,255,255,0.07);margin:.8rem 0;"></div>
+              <button class="btn btn--ghost" id="guia-explore-btn" style="font-size:.85rem;">Explorar todos los servicios ↓</button>
+              <div class="guia__back" style="margin-top:.5rem;">
+                <button id="guia-back-2" class="btn btn--ghost" style="font-size:.85rem;padding:.4rem .9rem;">↺ Empezar de nuevo</button>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /guia__container -->
+      </div>
+    </section>
+
+
+    <!-- PLANES -->
+    <section class="planes in-view" id="planes">
+      <div class="planes__header reveal visible">
+        <span class="tag" data-i18n="plansTag">Planes &amp; Precios</span>
+        <h2 class="section-title" data-i18n="plansTitle">Invertí en crecimiento,<br>no en gastos perdidos.</h2>
+        <p class="planes__sub" data-i18n="plansSub" style="font-size: 14px;">Planes flexibles diseñados para escalar tu negocio según tu etapa y objetivos.</p>
+      </div>
+      <div class="planes__grid">
+
+        <div class="plan-card reveal visible">
+          <div class="plan-card__header">
+            <div class="plan-card__name" data-i18n="planStarterName" style="">Plan Básico</div>
+            <div class="plan-card__ideal" data-i18n="planStarterIdeal">Para negocios que quieren empezar a crecer</div>
+          </div>
+          <ul class="plan-card__features">
+            <li><span class="plan-check"></span><span data-i18n="planStarterF1">Gestión de 1 red social</span></li>
+            <li><span class="plan-check"></span><span data-i18n="planStarterF2">8 publicaciones mensuales</span></li>
+            <li><span class="plan-check"></span><span data-i18n="planStarterF3">Reporte mensual básico</span></li>
+            <li><span class="plan-check"></span><span data-i18n="planStarterF4">Soporte por WhatsApp</span></li>
+          </ul>
+          <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%2C%20me%20interesa%20el%20plan%20Starter." target="_blank" rel="noopener" class="btn btn--ghost plan-card__btn" data-i18n="planCta">Consultar precio</a>
+        </div>
+
+        <div class="plan-card plan-card--featured reveal reveal--delay-1 visible" style="--mx: 56.5%; --my: 3.2%;">
+          <div class="plan-card__badge" data-i18n="planBadge">Más popular</div>
+          <div class="plan-card__header">
+            <div class="plan-card__name" data-i18n="planGrowName" style="">Plan Pro</div>
+            <div class="plan-card__ideal" data-i18n="planGrowIdeal">Para negocios que quieren escalar rápido</div>
+          </div>
+          <ul class="plan-card__features">
+            <li class=""><span class="plan-check"></span><span data-i18n="planGrowF1" class="">2 redes sociales gestionadas</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planGrowF2" class="">16 publicaciones mensuales</span></li>
+            <li><span class="plan-check"></span><span data-i18n="planGrowF3" class="">Campañas de publicidad paga</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planGrowF4" class="">Chatbot básico de WhatsApp</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planGrowF5" class="">Reporte quincenal detallado</span></li>
+            <li><span class="plan-check"></span><span data-i18n="planGrowF6" class="">Llamada mensual de estrategia</span></li>
+          </ul>
+          <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%2C%20me%20interesa%20el%20plan%20Growth." target="_blank" rel="noopener" class="btn btn--primary plan-card__btn" data-i18n="planCta">Consultar precio</a>
+        </div>
+
+        <div class="plan-card reveal reveal--delay-2 visible" style="--mx: 50.7%; --my: 81.9%;">
+          <div class="plan-card__header">
+            <div class="plan-card__name" data-i18n="planProName" style="">Plan Premium</div>
+            <div class="plan-card__ideal" data-i18n="planProIdeal">Para negocios que quieren dominar su mercado</div>
+          </div>
+          <ul class="plan-card__features">
+            <li class=""><span class="plan-check"></span><span data-i18n="planProF1" class="">Todas las redes sociales</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planProF2" class="">Contenido ilimitado + video</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planProF3" class="">Campañas avanzadas multi-canal</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planProF4" class="">Automatizaciones IA completas</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planProF5" class="">CRM + pipeline de ventas</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planProF6" class="">Reportes en tiempo real + dashboard</span></li>
+            <li class=""><span class="plan-check"></span><span data-i18n="planProF7">Diseño web incluido</span></li>
+          </ul>
+          <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%2C%20me%20interesa%20el%20plan%20Pro%20IA." target="_blank" rel="noopener" class="btn btn--ghost plan-card__btn" data-i18n="planCta">Consultar precio</a>
+        </div>
+
+      </div>
+      <p class="planes__note" data-i18n="plansNote">Todos los planes incluyen incorporación, onboarding y soporte dedicado. <a href="https://wa.me/59899421323" target="_blank" rel="noopener" class="" style="">Consultá por planes para tu negocio.</a></p>
+    </section>
+
+    <!-- DIFFERENTIATORS (centrado, con acordeón) -->
+    <section class="dif in-view" id="diferenciadores">
+      <div class="dif__header reveal visible">
+        <span class="tag">Por qué elegirnos</span>
+        <h2 class="section-title">La diferencia<br>que se mide en resultados.</h2>
+        <p style="color:var(--text-dim);font-size:1rem;margin-top:.75rem;max-width:520px;margin-left:auto;margin-right:auto;">Hacé clic en cada punto para conocer más.</p>
+      </div>
+      <div class="dif__accordion">
+        <div class="dif__acc-item reveal visible" data-dif="resultados">
+          <button class="dif__acc-trigger">
+            <div class="dif__acc-icon">
+              <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M14 4C14 4 6 8 6 16C6 20.4 9.6 24 14 24C18.4 24 22 20.4 22 16C22 8 14 4 14 4Z" stroke="currentColor" stroke-width="2"></path><path d="M10 17L13 20L19 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+            <span class="dif__acc-title">100% orientado a resultados</span>
+            <svg class="dif__acc-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </button>
+          <div class="dif__acc-body">
+            <p>No medimos éxito en likes ni en impresiones. Cada campaña, cada post, cada automatización se mide en leads generados, ventas cerradas y ROI documentado. Si no hay números, no hay estrategia. Y si hay números, te los mostramos sin filtros.</p>
+            <div class="dif__acc-stats">
+              <div class=""><strong class="" style="">Anuncios</strong><span class="" style="">Segmentados</span></div>
+              <div class=""><strong class="" style="">Estrategias</strong><span class="" style="">de contenido</span></div>
+              <div class=""><strong class="">100%</strong><span class="">reportes transparentes</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="dif__acc-item reveal reveal--delay-1 visible" data-dif="ia">
+          <button class="dif__acc-trigger">
+            <div class="dif__acc-icon">
+              <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="8" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"></rect><circle cx="11" cy="9" r="1" fill="currentColor"></circle><circle cx="17" cy="9" r="1" fill="currentColor"></circle><path d="M14 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+            </div>
+            <span class="dif__acc-title">IA como ventaja competitiva</span>
+            <svg class="dif__acc-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </button>
+          <div class="dif__acc-body">
+            <p>Automatizamos lo que otros hacen a mano: seguimiento de leads, respuestas por WhatsApp, generación de reportes, segmentación de audiencias. Tu competencia sigue trabajando con hojas de cálculo mientras vos escalás en piloto automático.</p>
+            <div class="dif__acc-stats">
+              <div><strong>2 seg</strong><span>respuesta IA</span></div>
+              <div><strong>24/7</strong><span>atención automática</span></div>
+              <div><strong>-80%</strong><span>tareas manuales</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="dif__acc-item reveal reveal--delay-2 visible" data-dif="transparencia">
+          <button class="dif__acc-trigger">
+            <div class="dif__acc-icon">
+              <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M4 20L10 14L14 18L20 10L24 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><rect x="3" y="3" width="22" height="22" rx="2" stroke="currentColor" stroke-width="2"></rect></svg>
+            </div>
+            <span class="dif__acc-title">Transparencia total</span>
+            <svg class="dif__acc-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </button>
+          <div class="dif__acc-body">
+            <p>Reportes claros, sin humo ni excusas. Tenés acceso a un dashboard en tiempo real donde podés ver exactamente qué pasa con tu inversión: alcance, conversiones, ROAS, costo por lead. Sin letra chica.</p>
+            <div class="dif__acc-stats">
+              <div><strong>Dashboard</strong><span>acceso 24/7</span></div>
+              <div><strong>Quincenal</strong><span>reporte detallado</span></div>
+              <div><strong>0</strong><span>info oculta</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="dif__acc-item reveal reveal--delay-3 visible" data-dif="equipo">
+          <button class="dif__acc-trigger">
+            <div class="dif__acc-icon">
+              <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" stroke="currentColor" stroke-width="2"></circle><path d="M5 24C5 19.582 9.029 16 14 16C18.971 16 23 19.582 23 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+            </div>
+            <span class="dif__acc-title">Equipo integrado, sin intermediarios</span>
+            <svg class="dif__acc-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </button>
+          <div class="dif__acc-body">
+            <p>Trafficker, filmmaker, desarrollador web y especialista en IA bajo el mismo techo. No subcontratamos, no usamos freelancers ocultos. Eso significa coherencia en la estrategia, velocidad de ejecución y una sola voz para comunicarte.</p>
+            <div class="dif__acc-stats">
+              <div><strong>4</strong><span>especialistas internos</span></div>
+              <div><strong>0</strong><span>intermediarios</span></div>
+              <div><strong>1</strong><span>interlocutor claro</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALORES / TIMELINE -->
+    <section class="valores in-view" id="nosotros">
+      <div class="valores__inner">
+        <div class="valores__header reveal visible">
+          <span class="tag">Quiénes Somos</span>
+          <h2 class="section-title">Impulsados por datos,<br>guiados por resultados.</h2>
+          <p class="valores__sub">Hacé clic en cualquier punto de la línea para conocer quiénes somos y qué nos mueve.</p>
+        </div>
+
+        <!-- Interactive Timeline -->
+        <!-- /ns-timeline -->
+      </div><div class="ns-timeline reveal visible" style="margin-bottom: 0px; text-align: left; font-size: 8px;">
+
+          <!-- Row of clickable dots -->
+          <div class="ns-timeline__dots-row">
+            <div class="ns-timeline__track"></div>
+
+            <div class="ns-timeline__item active" data-tl="mision">
+              <div class="ns-timeline__dot">
+                <svg width="20" height="20" viewBox="0 0 28 28" fill="none" class=""><path d="M14 3L25 8.5V19.5L14 25L3 19.5V8.5L14 3Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" class=""></path><circle cx="14" cy="14" r="3" fill="currentColor"></circle></svg>
+              </div>
+              <div class="ns-timeline__label">Misión</div>
+            </div>
+
+            <div class="ns-timeline__item" data-tl="vision">
+              <div class="ns-timeline__dot">
+                <svg width="20" height="20" viewBox="0 0 28 28" fill="none" class=""><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="2.2" class=""></circle><path d="M14 4V14L20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" class=""></path><circle cx="14" cy="14" r="2" fill="currentColor"></circle></svg>
+              </div>
+              <div class="ns-timeline__label">Visión</div>
+            </div>
+
+            <div class="ns-timeline__item" data-tl="valores">
+              <div class="ns-timeline__dot">
+                <svg width="20" height="20" viewBox="0 0 28 28" fill="none" class=""><path d="M14 4C14 4 6 8 6 16C6 20.4 9.6 24 14 24C18.4 24 22 20.4 22 16C22 8 14 4 14 4Z" stroke="currentColor" stroke-width="2.2" class=""></path><path d="M10 17L13 20L19 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </div>
+              <div class="ns-timeline__label">Valores</div>
+            </div>
+
+            <div class="ns-timeline__item" data-tl="equipo">
+              <div class="ns-timeline__dot">
+                <svg width="20" height="20" viewBox="0 0 28 28" fill="none" class=""><circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="2.2"></circle><circle cx="20" cy="10" r="4" stroke="currentColor" stroke-width="2.2"></circle><path d="M4 24C4 20 6.5 17 10 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" class=""></path><path d="M24 24C24 20 21.5 17 18 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M11 24C11 21 12.3 19 15 19C17.7 19 19 21 19 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+              </div>
+              <div class="ns-timeline__label">Equipo</div>
+            </div>
+
+            <div class="ns-timeline__item" data-tl="diferencial">
+              <div class="ns-timeline__dot">
+                <svg width="20" height="20" viewBox="0 0 28 28" fill="none" class=""><path d="M14 3L17.5 10.5L26 11.5L20 17.5L21.5 26L14 22L6.5 26L8 17.5L2 11.5L10.5 10.5L14 3Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" class=""></path></svg>
+              </div>
+              <div class="ns-timeline__label">Diferencial</div>
+            </div>
+          </div><!-- /dots-row -->
+
+          <!-- Panel stage: one panel shown at a time -->
+          <div class="ns-timeline__stage">
+
+            <div class="ns-timeline__panel-inner" style="text-align: left;">
+                <div class="ns-tl-icon">
+                  <svg width="32" height="32" viewBox="0 0 28 28" fill="none"><path d="M14 3L25 8.5V19.5L14 25L3 19.5V8.5L14 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><circle cx="14" cy="14" r="4" fill="currentColor" opacity="0.3"></circle><circle cx="14" cy="14" r="2" fill="currentColor"></circle></svg>
+                </div>
+                <h3 class="">Nuestra Misión</h3>
+                <p class="">Transformar la presencia digital de cada cliente en un motor de crecimiento medible y sostenible, mediante marketing inteligente e IA aplicada a resultados concretos. No prometemos humo — entregamos números.</p>
+                <div class="ns-tl-tags">
+                  <span>Marketing Real</span><span>IA Aplicada</span><span>Resultados Medibles</span>
+                </div>
+              </div><div class="ns-timeline__panel-content active" data-tl="mision">
+              
+            </div>
+
+            <div class="ns-timeline__panel-content" data-tl="vision">
+              <div class="ns-timeline__panel-inner">
+                <div class="ns-tl-icon">
+                  <svg width="32" height="32" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M14 4V14L20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><circle cx="14" cy="14" r="2" fill="currentColor"></circle></svg>
+                </div>
+                <h3>Nuestra Visión</h3>
+                <p>Ser la agencia referente de Latinoamérica en marketing con IA: donde cada peso invertido genere retorno medible y cada cliente escale sin techo ni frustraciones. El futuro del marketing es inteligente — y ya está aquí.</p>
+                <div class="ns-tl-tags">
+                  <span>Liderazgo LATAM</span><span>Escala sin límites</span><span>Tecnología de punta</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ns-timeline__panel-content" data-tl="valores">
+              <div class="ns-timeline__panel-inner">
+                <div class="ns-tl-icon">
+                  <svg width="32" height="32" viewBox="0 0 28 28" fill="none"><path d="M14 4C14 4 6 8 6 16C6 20.4 9.6 24 14 24C18.4 24 22 20.4 22 16C22 8 14 4 14 4Z" stroke="currentColor" stroke-width="2"></path><path d="M10 17L13 20L19 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </div>
+                <h3 class="">Nuestros Valores</h3>
+                <div class="ns-tl-values-grid">
+                  <div class=""><strong class="">Resultados</strong><span class="" style="">Métricas reales. Cada acción tiene un número detrás.</span></div>
+                  <div class=""><strong class="">Innovación IA</strong><span class="" style="">La IA es ventaja competitiva real y tangible.</span></div>
+                  <div class=""><strong class="">Transparencia</strong><span class="" style="">Reportes claros. Sabés exactamente qué pasa con tu inversión.</span></div>
+                  <div><strong>Compromiso</strong><span>Tu éxito es nuestro éxito. Crecemos juntos o no crecemos.</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ns-timeline__panel-content" data-tl="equipo">
+              <div class="ns-timeline__panel-inner">
+                <div class="ns-tl-icon">
+                  <svg width="32" height="32" viewBox="0 0 28 28" fill="none"><circle cx="9" cy="10" r="4" stroke="currentColor" stroke-width="2"></circle><circle cx="19" cy="10" r="4" stroke="currentColor" stroke-width="2"></circle><path d="M3 24C3 19.5 5.7 17 9 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M25 24C25 19.5 22.3 17 19 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+                </div>
+                <h3>Nuestro Equipo</h3>
+                <p>Trafficker, filmmaker, desarrollador web y especialista en IA en un mismo equipo integrado. Sin intermediarios, sin subcontratos ocultos. Estrategia, creatividad y tecnología bajo el mismo techo — trabajando para tu crecimiento.</p>
+                <div class="ns-tl-tags">
+                  <span>Equipo integrado</span><span>Sin intermediarios</span><span>Full-stack digital</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ns-timeline__panel-content" data-tl="diferencial">
+              <div class="ns-timeline__panel-inner">
+                <div class="ns-tl-icon">
+                  <svg width="32" height="32" viewBox="0 0 28 28" fill="none"><path d="M14 3L17.5 10.5L26 11.5L20 17.5L21.5 26L14 22L6.5 26L8 17.5L2 11.5L10.5 10.5L14 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path></svg>
+                </div>
+                <h3>Por Qué NeuroStudio</h3>
+                <p>Combinamos la creatividad de una boutique con la potencia analítica de la IA. Cada campaña está respaldada por datos, cada contenido tiene propósito, cada automatización trabaja mientras vos descansás. No somos una agencia más — somos el sistema de crecimiento de tu negocio.</p>
+                <div class="ns-tl-tags">
+                  <span>IA + Creatividad</span><span>Data-driven</span><span>ROI garantizado</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /ns-timeline__stage -->
+        </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="proceso in-view" id="proceso" style="margin-top: -128px;">
+      <div class="proceso__header reveal visible">
+        <span class="tag">Cómo trabajamos</span>
+        <h2 class="section-title">Un proceso claro<br>de principio a fin.</h2>
+        <p style="color:var(--text-dim);font-size:1rem;margin-top:.75rem">Hacé clic en cualquier paso para ver en detalle cómo trabajamos.</p>
+      </div>
+
+      <div class="proceso__steps">
+
+        <div class="proceso__step proceso__step--accordion reveal visible" data-step="1">
+          <div class="proceso__step-trigger">
+            <div class="proceso__step-num" style="color: rgb(255, 255, 255);">01</div>
+            <div class="proceso__step-body">
+              <h3>Diagnóstico</h3>
+              <p class="proceso__step-preview">Analizamos tu negocio, competencia y objetivos.</p>
+            </div>
+            <div class="proceso__step-chevron">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class=""><path d="M4 7L9 12L14 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+          </div>
+          <div class="proceso__step-expand">
+            <div class="proceso__step-detail">
+              <div class="proceso__step-detail-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="2"></circle><path d="M10 14l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </div>
+              <div class="proceso__step-detail-content">
+                <h4>¿Qué hacemos en el diagnóstico?</h4>
+                <p>Antes de mover un peso, entendemos a fondo tu negocio. Analizamos tu presencia digital actual, auditamos a tu competencia directa, mapeamos el comportamiento de tu cliente ideal y definimos métricas de éxito claras. Sin atajos: la base determina el resultado.</p>
+                <ul>
+                  <li>Auditoría de presencia digital (web, redes, SEO)</li>
+                  <li>Análisis de competidores y posicionamiento de mercado</li>
+                  <li>Definición de buyer persona y journey de compra</li>
+                  <li>Establecimiento de KPIs y objetivos medibles</li>
+                </ul>
+                <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%20Quiero%20empezar%20con%20el%20diagn%C3%B3stico%20de%20mi%20negocio." target="_blank" class="btn btn--primary" style="margin-top:1rem;display:inline-flex;">Comenzar diagnóstico gratuito →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proceso__connector"></div>
+
+        <div class="proceso__step proceso__step--accordion reveal reveal--delay-1 visible" data-step="2">
+          <div class="proceso__step-trigger">
+            <div class="proceso__step-num">02</div>
+            <div class="proceso__step-body">
+              <h3 class="">Estrategia</h3>
+              <p class="proceso__step-preview">Plan de acción personalizado con KPIs claros.</p>
+            </div>
+            <div class="proceso__step-chevron">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 7L9 12L14 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+          </div>
+          <div class="proceso__step-expand">
+            <div class="proceso__step-detail">
+              <div class="proceso__step-detail-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 20L10 14L14 18L20 10L24 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><rect x="3" y="3" width="22" height="22" rx="2" stroke="currentColor" stroke-width="2"></rect></svg>
+              </div>
+              <div class="proceso__step-detail-content">
+                <h4>¿Cómo diseñamos tu estrategia?</h4>
+                <p>Con los datos del diagnóstico, construimos un plan de acción a medida — sin templates genéricos. Elegimos los canales correctos (Meta, Google, TikTok, email, WhatsApp), definimos presupuestos óptimos, formatos de contenido y automatizaciones necesarias para alcanzar tus objetivos.</p>
+                <ul>
+                  <li>Selección de canales y mix de medios óptimo</li>
+                  <li>Calendario de contenido y campañas con presupuesto</li>
+                  <li>Diseño de embudos de conversión personalizados</li>
+                  <li>Plan de automatizaciones e IA para escalar</li>
+                </ul>
+                <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%20Quiero%20que%20dise%C3%B1en%20una%20estrategia%20para%20mi%20negocio." target="_blank" class="btn btn--primary" style="margin-top:1rem;display:inline-flex;">Quiero mi estrategia →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proceso__connector"></div>
+
+        <div class="proceso__step proceso__step--accordion reveal reveal--delay-2 visible" data-step="3">
+          <div class="proceso__step-trigger">
+            <div class="proceso__step-num" style="color: rgb(255, 255, 255);">03</div>
+            <div class="proceso__step-body">
+              <h3 class="">Ejecución</h3>
+              <p class="proceso__step-preview">Campañas activas, contenido y automatizaciones en vivo.</p>
+            </div>
+            <div class="proceso__step-chevron">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class=""><path d="M4 7L9 12L14 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+          </div>
+          <div class="proceso__step-expand">
+            <div class="proceso__step-detail">
+              <div class="proceso__step-detail-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path></svg>
+              </div>
+              <div class="proceso__step-detail-content">
+                <h4>¿Cómo ejecutamos tu plan?</h4>
+                <p>Arrancamos con velocidad y precisión. Lanzamos campañas pagadas, publicamos contenido optimizado, activamos chatbots y automatizaciones, y monitoreamos cada variable en tiempo real. Ajustamos diariamente para maximizar el rendimiento desde el día uno.</p>
+                <ul>
+                  <li>Lanzamiento de campañas publicitarias en todos los canales</li>
+                  <li>Producción y publicación de contenido según calendario</li>
+                  <li>Activación de chatbots y flujos de automatización</li>
+                  <li>Optimización continua basada en datos en tiempo real</li>
+                </ul>
+                <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%20Quiero%20empezar%20a%20ejecutar%20mi%20estrategia%20digital." target="_blank" class="btn btn--primary" style="margin-top:1rem;display:inline-flex;">Activar mi plan →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proceso__connector"></div>
+
+        <div class="proceso__step proceso__step--accordion reveal reveal--delay-3 visible" data-step="4">
+          <div class="proceso__step-trigger">
+            <div class="proceso__step-num">04</div>
+            <div class="proceso__step-body">
+              <h3 class="">Reporte</h3>
+              <p class="proceso__step-preview">Métricas reales y próximos pasos claros.</p>
+            </div>
+            <div class="proceso__step-chevron">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 7L9 12L14 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+          </div>
+          <div class="proceso__step-expand">
+            <div class="proceso__step-detail">
+              <div class="proceso__step-detail-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"></rect><path d="M9 14L12 17L19 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </div>
+              <div class="proceso__step-detail-content">
+                <h4>¿Qué vas a ver en los reportes?</h4>
+                <p>Cero humo, cero excusas. Reportes claros con los números que importan: alcance, clics, conversiones, ROAS, costo por lead y retención. Cada reporte incluye análisis de qué funcionó, qué ajustamos y cuáles son los próximos pasos para seguir escalando.</p>
+                <ul>
+                  <li>Dashboard con métricas en tiempo real accesible 24/7</li>
+                  <li>Reporte quincenal o mensual según tu plan</li>
+                  <li>Análisis de ROAS, CPA, CTR y retención de clientes</li>
+                  <li>Reunión de revisión con propuesta de mejoras</li>
+                </ul>
+                <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%20Quiero%20ver%20un%20ejemplo%20de%20reporte%20y%20empezar." target="_blank" class="btn btn--primary" style="margin-top:1rem;display:inline-flex;">Ver cómo reportamos →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AUDITOR IA -->
+    <section class="auditor in-view" id="auditor-ia">
+      <div class="auditor__inner reveal visible">
+        <div class="auditor__float-stats" aria-hidden="true">
+          <div class="auditor__stat-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class=""><path d="M12 20V4M5 11l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <div class=""><strong class="" style="">Estrategias</strong><span class="" style="">De contenido</span></div>
+          </div>
+          <div class="auditor__stat-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path></svg>
+            <div class=""><strong class="" style="">Anuncios</strong><span class="" style="">Segmentados</span></div>
+          </div>
+          <div class="auditor__stat-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.9 10.15 9 11.35C17.1 22.15 21 17.25 21 12V7L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <div class=""><strong class="" style="">Automatizaciones</strong><span class="" style="">Con IA</span></div>
+          </div>
+        </div>
+        <div class="auditor__content">
+          <div class="auditor__scan-deco" aria-hidden="true"></div>
+          <span class="tag">Herramienta Gratuita</span>
+          <h2 class="section-title">Auditor Inteligente de Negocios</h2>
+          <p class="auditor__sub">Analizamos en segundos tu presencia digital (web o perfil de Instagram) y descubrimos oportunidades de mejora para vender más.</p>
+
+          <div class="auditor__form" id="auditor-form" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
+            <div class="auditor__input-group">
+              <input type="text" id="auditor-input" class="auditor__input" placeholder="Ej: www.tuweb.com o @tu.instagram" autocomplete="off" data-np-checked="1">
+              <button class="btn btn--primary auditor__btn" id="auditor-submit" style="" data-np-autofill-submit="">Auditar ahora</button>
+            </div>
+            <p class="auditor__note">Es 100% confidencial y gratuito.</p>
+          </div>
+
+          <div class="auditor__scanning" id="auditor-scanning" style="display: none;">
+            <div class="auditor__scanning-loader">
+              <span class="auditor__pulse"></span>
+            </div>
+            <div class="auditor__scanning-text">
+              <span id="auditor-status">Iniciando escaneo IA...</span>
+            </div>
+            <div class="auditor__progress-bar">
+              <div class="auditor__progress-fill" id="auditor-progress"></div>
+            </div>
+          </div>
+
+          <div class="auditor__result" id="auditor-result" style="display: none;">
+            <h3 class="auditor__result-title">Auditoría completada para <span id="auditor-target-name"></span></h3>
+
+            <div class="auditor__result-box" style="text-align: left; padding: 2rem;">
+              <div class="auditor__alert auditor__alert--warning" style="margin-bottom: 2rem;">
+                <strong><span id="auditor-dynamic-alert">Alerta:</span></strong> Hemos detectado <span class="auditor__highlight">oportunidades clave de crecimiento y conversión</span> que no estás aprovechando actualmente.
+              </div>
+              <p class="auditor__result-desc" style="font-size: 1.1rem; color: #E2E8F0; margin-bottom: 2rem;">El Motor de IA detectó pérdidas de interacción. Para ver la información de tu fuga comercial, despliega el menú a continuación.</p>
+
+              <button class="btn btn--ghost" id="auditor-download" style="width: 100%; border: 1px solid var(--blue-600); justify-content: space-between;">
+                Ver diagnóstico detallado de tu negocio
+                <span style="font-size: 14px;">▼</span>
+              </button>
+
+              <div id="inline-report" style="display: none; margin-top: 1.5rem; background: var(--gray-800); border-radius: var(--radius-md); padding: 1.5rem; border: 1px solid var(--gray-700);">
+                <h4 style="color: var(--white); margin-bottom: 1rem; font-weight: 600; font-size: 1.2rem; display:flex; align-items:center; gap: 10px;">
+                  <span style="color: #ef4444;">??</span> Debilidades detectadas:
+                </h4>
+                <ul id="pdf-findings" style="color: var(--gray-300); font-size: 0.95rem; margin-bottom: 2rem; padding-left: 20px; line-height: 1.6;">
+                </ul>
+
+                <h4 style="color: var(--white); margin-bottom: 1rem; font-weight: 600; font-size: 1.2rem; display:flex; align-items:center; gap: 10px;">
+                   <span style="color: #10b981;">??</span> Solución NeuroStudio:
+                </h4>
+                <ul id="pdf-actions" style="color: var(--gray-300); font-size: 0.95rem; padding-left: 20px; line-height: 1.6;">
+                </ul>
+
+                <div style="margin-top: 3rem; text-align: center; border-top: 1px solid var(--gray-700); padding-top: 2rem;">
+                  <h4 style="color: var(--white); font-size: 1.2rem; margin-bottom: 0.5rem;">Cierra esas fugas de dinero hoy mismo.</h4>
+                  <p style="color: var(--gray-400); font-size: 0.9rem; margin-bottom: 1.5rem;">Nosotros nos encargamos de implementar estas y otras estrategias en tu negocio.</p>
+                  <a href="https://wa.me/59899421323?text=Hola,%20acabo%20de%20ver%20mi%20auditoria%20y%20quiero%20que%20me%20ayuden%20a%20mejorar%20mis%20ventas." target="_blank" rel="noopener" class="btn btn--primary" style="width:100%; justify-content: center;">Corregir errores y escalar</a>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn--ghost mt-8" id="auditor-reset">Probar con otro negocio</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta in-view" id="contacto">
+      <div class="cta__inner reveal visible">
+        <span class="tag tag--light">Empecemos</span>
+        <h2 class="cta__title">Tu próximo cliente<br>te está buscando.</h2>
+        <p class="cta__sub">Cada día sin una estrategia digital es un día que le regalás a tu competencia. Empecemós hoy.</p>
+        <div class="cta__actions">
+          <a href="#" class="btn btn--primary btn--lg btn-agendar" data-i18n="btnFreeSession">Agendar Sesión Gratuita</a>
+          <a href="https://wa.me/59899421323" target="_blank" rel="noopener" class="btn btn--ghost btn--lg">Escribir por WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="#" class="footer__logo">NeuroStudio</a>
+        <p class="footer__tagline">Marketing Digital e IA para negocios que quieren crecer en serio.</p>
+        <div class="footer__social">
+          <a href="https://instagram.com/neurostudio.uy" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"></rect><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"></circle><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"></circle></svg>
+          </a>
+          <a href="https://wa.me/59899421323" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4 class="footer__col-title">Servicios</h4>
+          <a href="#servicios" class="">Performance Ads</a>
+          <a href="#servicios" class="">Diseño Web</a>
+          <a href="#servicios">IA &amp; Automatizaciones</a>
+          <a href="#servicios" class="">Social Media</a>
+          <a href="#servicios">Contenido Viral</a>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Empresa</h4>
+          <a href="#nosotros">Quiénes somos</a>
+          <a href="#proceso">Proceso</a>
+          <a href="#planes" class="">Planes</a>
+          <a href="#auditor-ia" class="">Auditor IA</a>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Contacto</h4>
+          <a href="https://wa.me/59899421323" target="_blank" rel="noopener" class="">WhatsApp</a>
+          <a href="mailto:hola@neurostudio.uy" class="">hola@neurostudio.uy</a>
+          <a href="#" class="btn-agendar">Agendar llamada</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="" style="">© 2026 NeuroStudio. Todos los derechos reservados. Uruguay.</p>
+    </div>
+  </footer>
+
+  <!-- Orbit panel — placed at body level so position:fixed works correctly -->
+  <div id="orbit-panel" aria-hidden="true" class="" style="--panel-color: #ec4899;">
+    <div class="orbit-panel__backdrop" id="orbit-overlay"></div>
+    <div class="orbit-panel__card">
+      <button class="op-close" aria-label="Cerrar">×</button>
+      <div class="op-header">
+        <div class="op-title">Contenido Viral</div>
+        <div class="op-sub">Reels · TikToks · Carruseles</div>
+      </div>
+      <div class="op-cols">
+        <div class="op-col op-col--pro">
+          <h4 class="op-col-title">Con NeuroStudio</h4>
+          <ul class="op-pros"><li><span class="op-icon op-icon--yes">✓</span><span>Reels y TikToks que detienen el scroll y despiertan deseo de compra</span></li><li><span class="op-icon op-icon--yes">✓</span><span>Contenido con ganchos psicológicos que retienen audiencia</span></li><li><span class="op-icon op-icon--yes">✓</span><span>Posicionamiento de autoridad que hace crecer tu comunidad rápido</span></li></ul>
+        </div>
+        <div class="op-col op-col--con">
+          <h4 class="op-col-title">Sin NeuroStudio</h4>
+          <ul class="op-cons"><li><span class="op-icon op-icon--no">✗</span><span>Contenido genérico = marca olvidable = sin ventas</span></li><li><span class="op-icon op-icon--no">✗</span><span>El algoritmo penaliza la baja producción con menor alcance</span></li><li><span class="op-icon op-icon--no">✗</span><span>Tus competidores dominan el feed mientras vos no estás</span></li></ul>
+        </div>
+      </div>
+      <a href="https://wa.me/59899421323?text=Hola%20NeuroStudio%20%F0%9F%91%8B%20Me%20interesa%20la%20*creaci%C3%B3n%20de%20contenido%20viral*%20(Reels%2C%20TikToks)%20para%20mi%20marca.%20%C2%BFPodemos%20hablar%3F" class="btn btn--primary op-wa-btn" target="_blank" rel="noopener">Quiero este servicio →</a>
+    </div>
+  </div>
+
+  
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+
+  <script src="main.js?v=4"></script>
+  <script src="animate.js?v=4"></script>
+  <script src="catalog.js?v=2"></script>
+  
+  <script>
+    
+
+    </script>
+
+  
+
+
+  
+  
+  
+
+
+  <input type="file" id="ns-file-inp" accept="image/*" style="display: none;">
+  <script src="editor.js?v=1775284336188"></script>
+</body></html>

@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "mcp__Claude_Preview__preview_start",
+      "WebFetch(domain:delabs.pro)",
+      "Bash(python -c \":*)",
+      "WebFetch(domain:nvg8.io)",
+      "Bash(ffmpeg -i \"C:/Users/Cliente/Downloads/A760F43F-9260-4131-8AAB-1C8403E2E14F.mp4\" -vf \"fps=1/3,scale=900:-1\" -frames:v 8 \"C:/Users/Cliente/Downloads/frame_%02d.jpg\" -y)",
+      "Bash(where ffmpeg:*)",
+      "Bash(powershell -Command \"Get-Command ffmpeg -ErrorAction SilentlyContinue\")",
+      "Bash(powershell -Command \"Add-Type -AssemblyName PresentationCore; $media = New-Object System.Windows.Media.MediaPlayer; $media.Open\\([uri]''''C:/Users/Cliente/Downloads/A760F43F-9260-4131-8AAB-1C8403E2E14F.mp4''''\\); Start-Sleep -Milliseconds 500; Write-Output $media.NaturalDuration\")",
+      "Bash(python3 -c \"import cv2; print\\(''cv2 ok''\\)\")",
+      "Bash(python -c \"import cv2; print\\(''cv2 ok''\\)\")",
+      "Bash(python3 -c \":*)",
+      "Bash(node -e \"const fs=require\\(''fs''\\); const buf=fs.readFileSync\\(''C:/Users/Cliente/Downloads/A760F43F-9260-4131-8AAB-1C8403E2E14F.mp4''\\); console.log\\(''Size:'', buf.length, ''bytes''\\); const header=buf.slice\\(0,12\\).toString\\(''hex''\\); console.log\\(''Header:'', header\\);\")",
+      "Bash(powershell -Command \"Copy-Item ''C:\\\\Users\\\\Cliente\\\\Downloads\\\\A760F43F-9260-4131-8AAB-1C8403E2E14F.mp4'' ''C:\\\\Users\\\\Cliente\\\\Documents\\\\Web\\\\preview_video.mp4''\")",
+      "Bash(del \"C:\\\\Users\\\\Cliente\\\\Documents\\\\Web\\\\preview_video.mp4\")",
+      "Bash(/c/Users/Cliente/AppData/Local/Programs/Python/Python313/python \"C:/Users/Cliente/Documents/Web/append_css.py\")",
+      "Bash(/c/Users/Cliente/AppData/Local/Programs/Python/Python313/python \"C:/Users/Cliente/Documents/Web/update_html.py\")",
+      "Bash(git -C \"C:/Users/Cliente/Documents/Web/\" status)",
+      "Bash(/c/Users/Cliente/AppData/Local/Programs/Python/Python313/python \"C:/Users/Cliente/Documents/Web/reconstruct.py\")",
+      "Bash(cmd.exe /c \"vssadmin list shadows 2>&1\")",
+      "Bash(python \"C:/Users/Cliente/Documents/Web/update_html.py\")",
+      "Bash(python \"C:/Users/Cliente/Documents/Web/build_html.py\")",
+      "Bash(ls -la \"C:/Users/Cliente/Documents/Web/\"*.html \"C:/Users/Cliente/Documents/Web/\"*.bak)",
+      "WebFetch(domain:reflect.app)"
+    ]
+  }
+}
