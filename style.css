@@ -4612,3 +4612,139 @@ body::-webkit-scrollbar-thumb:hover, html::-webkit-scrollbar-thumb:hover {
     font-size: 1.35rem !important;
   }
 }
+
+
+/* ============================================
+   SECTION 20 — PLANES REDESIGN: LIQUID GLASS
+   ============================================ */
+
+/* Category blocks */
+.planes__category {
+  margin-bottom: 4rem;
+}
+.planes__category--auto {
+  margin-bottom: 1rem;
+}
+.planes__category-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.planes__category-title {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  background: linear-gradient(135deg, #fff 60%, rgba(0,87,255,.6));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: .5rem;
+}
+.planes__category-sub {
+  color: var(--text-dim);
+  font-size: .9rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* 3-column grid */
+.planes__grid--3 {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1.5rem;
+}
+/* 1-column centered grid */
+.planes__grid--1 {
+  grid-template-columns: 1fr !important;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Liquid glass card base */
+.plan-card--glass {
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+  border-radius: 20px !important;
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.plan-card--glass:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(0, 87, 255, 0.35) !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.45), 0 0 40px rgba(0,87,255,0.12), inset 0 1px 0 rgba(255,255,255,0.12) !important;
+}
+.plan-card--glass.plan-card--featured {
+  background: rgba(0, 87, 255, 0.08) !important;
+  border-color: rgba(0, 87, 255, 0.4) !important;
+  box-shadow: 0 16px 60px rgba(0, 87, 255, 0.2), inset 0 1px 0 rgba(0,87,255,0.2) !important;
+}
+.plan-card--glass.plan-card--featured:hover {
+  border-color: rgba(0, 87, 255, 0.7) !important;
+  box-shadow: 0 28px 80px rgba(0, 87, 255, 0.3), inset 0 1px 0 rgba(0,87,255,0.25) !important;
+}
+
+/* Badge variants */
+.plan-card__badge--subtle {
+  background: rgba(255,255,255,0.08) !important;
+  color: rgba(255,255,255,0.6) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+}
+.plan-card__badge--gold {
+  background: linear-gradient(135deg, rgba(255,180,0,0.2), rgba(255,120,0,0.15)) !important;
+  color: #f0a800 !important;
+  border: 1px solid rgba(255,180,0,0.3) !important;
+}
+.plan-card__badge--blue {
+  background: linear-gradient(135deg, rgba(0,87,255,0.2), rgba(0,180,255,0.15)) !important;
+  color: #4da6ff !important;
+  border: 1px solid rgba(0,120,255,0.3) !important;
+}
+
+/* Plan description */
+.plan-card__desc {
+  font-size: .88rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin-top: .6rem;
+}
+
+/* Automation plan: 3-col feature layout */
+.plan-card--auto {
+  padding: 2rem 2.5rem !important;
+}
+.plan-auto__features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.plan-auto__col-title {
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #4da6ff;
+  margin-bottom: .75rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid rgba(0,120,255,0.2);
+}
+.plan-card--auto .plan-card__features {
+  margin-bottom: 0;
+}
+.plan-card--auto .plan-card__features li::before {
+  color: #4da6ff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .planes__grid--3 {
+    grid-template-columns: 1fr !important;
+  }
+  .plan-auto__features {
+    grid-template-columns: 1fr !important;
+  }
+}
