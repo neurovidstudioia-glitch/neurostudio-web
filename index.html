@@ -100,30 +100,87 @@
     body { background-color: #03060f !important; }
     .services, .narrative, section, main { background-color: transparent !important; background-image: none !important; }
   </style>
-<link type="text/css" rel="stylesheet" charset="UTF-8" href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.2f3WBw8L4SI.L.W.O/am=AAAO/d=0/rs=AN8SPfqEMEisTZAmeZOnTrf_mfOPDE49Nw/m=el_main_css"><script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/_/translate_http/_/js/k=translate_http.tr.es.xw22fZvEVAo.O/am=AABA/d=1/exm=el_conf/ed=1/rs=AN8SPfqROMUPqL1ppMplL7JCs9BsS7lAcw/m=el_main"></script><link type="text/css" rel="stylesheet" charset="UTF-8" href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.2f3WBw8L4SI.L.W.O/am=AAAO/d=0/rs=AN8SPfqEMEisTZAmeZOnTrf_mfOPDE49Nw/m=el_main_css"><script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/_/translate_http/_/js/k=translate_http.tr.es.xw22fZvEVAo.O/am=AABA/d=1/exm=el_conf/ed=1/rs=AN8SPfqROMUPqL1ppMplL7JCs9BsS7lAcw/m=el_main"></script>  <style>
-    /* HOTFIX MOBILE PARA A12 (BYPASS CACHE) */
-    @media (max-width: 768px) {
-      .nav__inner { padding: 0.5rem 0.8rem !important; }
-      .btn--nav {
-        padding: 0.4rem 0.6rem !important;
-        font-size: 0.8rem !important;
-        white-space: nowrap !important;
-        margin-right: 2px !important;
-      }
-      .nav__logo { font-size: 1.15rem !important; white-space: nowrap !important; }
-      
-      .dif__acc-stats, .dif__accordion-item {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-      }
-      .dif__acc-stats > div {
-        flex: 1 1 100% !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-      }
-      .dif__acc-stats strong { font-size: 1.25rem !important; }
+  <style>
+    /* =========================================
+       GLOBAL PROFESSIONAL RESPONSIVE TYPOGRAPHY
+       ========================================= */
+    :root {
+      --text-base: clamp(1rem, 1vw + 0.8rem, 1.125rem);
+      --text-lg: clamp(1.125rem, 1.5vw + 0.9rem, 1.25rem);
+      --text-xl: clamp(1.25rem, 2vw + 1rem, 1.5rem);
+      --text-2xl: clamp(1.5rem, 3vw + 1rem, 2rem);
+      --text-3xl: clamp(1.875rem, 4vw + 1.2rem, 2.5rem);
+      --text-4xl: clamp(2.25rem, 5vw + 1.5rem, 3.5rem);
+      --text-5xl: clamp(3rem, 7vw + 1.5rem, 4.5rem);
+      --text-6xl: clamp(3.5rem, 8vw + 2rem, 6rem);
     }
+
+    body {
+      font-size: var(--text-base) !important;
+    }
+
+    h1, .hero-title, h1.hero-title {
+      font-size: var(--text-5xl) !important;
+      line-height: 1.1 !important;
+      letter-spacing: -0.03em !important;
+      margin-bottom: 1.5rem;
+    }
+
+    h2, .section-title, .cta__title {
+      font-size: var(--text-4xl) !important;
+      line-height: 1.15 !important;
+      letter-spacing: -0.02em !important;
+      margin-bottom: 1.5rem;
+    }
+
+    h3, .bento__card-title, .plan-card__name {
+      font-size: var(--text-2xl) !important;
+      line-height: 1.25 !important;
+      letter-spacing: -0.01em;
+    }
+
+    h4 {
+      font-size: var(--text-xl) !important;
+    }
+
+    p.hero__sub, p.planes__sub, p.cta__sub, p.valores__sub, p.auditor__sub {
+      font-size: var(--text-lg) !important;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-inline: auto;
+      color: var(--text-dim) !important;
+    }
+
+    p {
+      font-size: var(--text-base);
+      max-width: 75ch;
+    }
+
+    /* FIXES COMPACTOS Y RESPONSIVE PADDINGS */
+    @media (max-width: 768px) {
+      .hero-title, h1.hero-title { font-size: var(--text-4xl) !important; }
+      .section-title, .cta__title { font-size: var(--text-3xl) !important; hyphens: auto; }
+      
+      .nav__inner { padding: 0.8rem 1.2rem !important; }
+      .nav__logo { font-size: 1.15rem !important; }
+      .btn--nav { padding: 0.5rem 0.8rem !important; font-size: 0.85rem !important; }
+      
+      section { padding: 4rem 1.2rem !important; }
+      .bento__grid, .planes__grid, .proceso__steps { gap: 1.2rem !important; }
+      .bento__card, .plan-card, .proceso__step-detail, .ns-timeline__stage { 
+        padding: 1.5rem !important; 
+        border-radius: 16px !important;
+      }
+      
+      .dif__accordion { gap: 1rem !important; }
+      .dif__acc-trigger { padding: 1.2rem !important; }
+      .dif__acc-title { font-size: var(--text-lg) !important; }
+      .dif__acc-body { padding: 1rem 1.2rem !important; }
+      .dif__acc-stats > div { flex-direction: column !important; gap: 0.2rem !important; text-align: center; }
+      .dif__acc-stats > div strong { font-size: 1.8rem !important; }
+      .dif__acc-stats > div span { font-size: 0.85rem !important; }
+    }
+    
     @media (max-width: 410px) {
       .btn--nav { font-size: 0px !important; }
       .btn--nav::after { content: "Agendar" !important; font-size: 0.8rem !important; }
